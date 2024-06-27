@@ -1,0 +1,47 @@
+#!/usr/bin/make -f
+#export DH_VERBOSE=1
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+DEB_HOST_ARCH ?= $(shell dpkg-architecture -qDEB_HOST_ARCH)
+
+RUN_TESTS := yes
+ifeq (nocheck,$(findstring nocheck,$(DEB_BUILD_OPTIONS)))
+  $(warning Disabling checks due DEB_BUILD_OPTIONS)
+  RUN_TESTS := no
+endif
+ifeq ($(DEB_HOST_ARCH),$(filter $(DEB_HOST_ARCH),i386 hurd-i386 sparc64))
+  $(warning Disabling checks on $(DEB_HOST_ARCH))
+  RUN_TESTS := no
+endif
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	dh_auto_configure -- --with-cryptopp
+
+override_dh_auto_build-arch:
+	dh_auto_build
+
+override_dh_auto_build-indep:
+	doxygen docs.doxy
+
+override_dh_auto_install-arch:
+	dh_auto_install
+
+override_dh_auto_install-indep:
+	mkdir -p debian/tmp/usr/share/doc/ugv266/
+	cp -r doxygen_html debian/tmp/usr/share/doc/ugv266/html
+
+override_dh_auto_test-arch:
+ifeq (yes,$(RUN_TESTS))
+	dh_auto_test
+else
+	echo 'nocheck found in DEB_BUILD_OPTIONS or unsupported architecture'
+endif
+
+override_dh_auto_test-indep:
+	# No tests for architecture independent packages.
+
+override_dh_installdocs:
+	rm -f debian/tmp/usr/share/doc/ugv266/LICENSE*
+	dh_installdocs

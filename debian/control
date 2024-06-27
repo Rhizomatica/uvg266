@@ -1,0 +1,68 @@
+Source: uvg266
+Section: libs
+Priority: optional
+Maintainer: Debian Multimedia Maintainers <debian-multimedia@lists.debian.org>
+Uploaders:
+ Rafael Diniz <rafael@rhizomatica.org>
+Build-Depends:
+ debhelper-compat (= 13),
+ ffmpeg,
+ hm,
+ libcrypto++-dev,
+ pkgconf
+Build-Depends-Indep:
+ doxygen,
+ graphviz
+Standards-Version: 4.7.0
+Rules-Requires-Root: no
+Homepage: https://github.com/ultravideo/uvg266
+Vcs-Browser: https://github.com/ultravideo/uvg266
+Vcs-Git: https://github.com/ultravideo/uvg266
+
+Package: uvg266
+Section: video
+Architecture: any
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends}
+Description: VVC encoder - application
+ kvazaar is a VVC encoder.
+ .
+ This package contains the kvazaar VVC application.
+
+Package: libuvg266
+Architecture: any
+Multi-Arch: same
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends}
+Description: VVC encoder - shared library
+ kvazaar is a VVC encoder.
+ .
+ This package contains the shared library.
+
+Package: libuvg266-dev
+Section: libdevel
+Architecture: any
+Multi-Arch: same
+Depends:
+ libuvg266 (= ${binary:Version}),
+ ${misc:Depends}
+Suggests:
+ uvg266-doc
+Description: VVC encoder - development files
+ uvg266 is a VVC encoder.
+ .
+ The development headers for compiling programs that use kvazaar are provided
+ by this package.
+
+Package: uvg266-doc
+Section: doc
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ ${misc:Depends}
+Description: VVC encoder - documentation
+ kvazaar is a VVC encoder.
+ .
+ This package contains the documentation.
