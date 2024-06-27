@@ -7,8 +7,6 @@ Uploaders:
 Build-Depends:
  debhelper-compat (= 13),
  ffmpeg,
- hm,
- libcrypto++-dev,
  pkgconf
 Build-Depends-Indep:
  doxygen,

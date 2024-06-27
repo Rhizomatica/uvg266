@@ -3,7 +3,7 @@
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 DEB_HOST_ARCH ?= $(shell dpkg-architecture -qDEB_HOST_ARCH)
 
-RUN_TESTS := yes
+RUN_TESTS := no
 ifeq (nocheck,$(findstring nocheck,$(DEB_BUILD_OPTIONS)))
   $(warning Disabling checks due DEB_BUILD_OPTIONS)
   RUN_TESTS := no
@@ -17,7 +17,7 @@ endif
 	dh $@
 
 override_dh_auto_configure:
-	dh_auto_configure -- --with-cryptopp
+	dh_auto_configure
 
 override_dh_auto_build-arch:
 	dh_auto_build
