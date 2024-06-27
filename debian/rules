@@ -29,8 +29,8 @@ override_dh_auto_install-arch:
 	dh_auto_install
 
 override_dh_auto_install-indep:
-	mkdir -p debian/tmp/usr/share/doc/ugv266/
-	cp -r doxygen_html debian/tmp/usr/share/doc/ugv266/html
+	mkdir -p debian/tmp/usr/share/doc/uvg266/
+	cp -r doxygen_html debian/tmp/usr/share/doc/uvg266/html
 
 override_dh_auto_test-arch:
 ifeq (yes,$(RUN_TESTS))
